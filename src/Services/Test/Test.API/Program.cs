@@ -1,4 +1,6 @@
 using Carter;
+using BuildingBlocks.Messaging.MassTransit;
+using Test.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddMediatR(config =>
 });
 
 builder.Services.AddCarter();
+
+//Async Communication Services
+builder.Services.AddMessageBroker(builder.Configuration);
+
+builder.Services.RegisterMapsterConfiguration();
 
 var app = builder.Build();
 

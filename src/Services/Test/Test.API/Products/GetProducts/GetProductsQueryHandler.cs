@@ -1,11 +1,14 @@
 ﻿using BuildingBlocks.CQRS;
+using BuildingBlocks.Messaging.Events;
+using Mapster;
+using MassTransit;
 using Test.API.Models;
 
 namespace Test.API.Products.GetProducts;
 
 public record GetProductsQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetProductsResult>;
 public record GetProductsResult(IEnumerable<Product> Products);
-internal class GetProductsQueryHandler()
+internal class GetProductsQueryHandler(IPublishEndpoint publishEndpoint)
     : IQueryHandler<GetProductsQuery, GetProductsResult>
 {
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
@@ -21,6 +24,13 @@ internal class GetProductsQueryHandler()
             .Skip((query.PageNumber.GetValueOrDefault(1) - 1) * query.PageSize.GetValueOrDefault(10))
             .Take(query.PageSize.GetValueOrDefault(10))
             .ToList();
+
+        var eventMessages = pagedProducts.Adapt<List<ProductEvent>>();
+
+        foreach (var eventMessage in eventMessages)
+        {
+            await publishEndpoint.Publish(eventMessage, cancellationToken);
+        }
 
         return new GetProductsResult(pagedProducts);
     }
