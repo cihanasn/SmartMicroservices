@@ -11,5 +11,6 @@ public class ProducEventHandler
     public async Task Consume(ConsumeContext<ProductEvent> context)
     {
         logger.LogInformation("Integration Event handled: {IntegrationEvent}", context.Message.GetType().Name);
+
     }
 }
