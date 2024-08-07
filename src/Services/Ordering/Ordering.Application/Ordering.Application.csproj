@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Orders\Commands\" />
-    <Folder Include="Orders\EventHandlers\" />
   </ItemGroup>
 
 </Project>
