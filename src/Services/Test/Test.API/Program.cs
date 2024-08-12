@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Test.API;
+using Test.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddSingleton<TokenService>();
 
 var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>

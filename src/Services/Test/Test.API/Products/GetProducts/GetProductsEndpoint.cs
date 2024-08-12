@@ -1,6 +1,12 @@
 ﻿using Carter;
 using Mapster;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
+using System.Text;
+
 //using Microsoft.IdentityModel.Tokens;
 //using System.IdentityModel.Tokens.Jwt;
 //using System.Security.Claims;
@@ -32,6 +38,24 @@ public class GetProductsEndpoint : ICarterModule
             //var token = tokenHandler.CreateToken(tokenDescriptor);
             //var tokenString = tokenHandler.WriteToken(token);
             #endregion
+
+            #region TestAuth 2
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes("your-refresh-token-secret-is-a-32-byte-long-key-12345678");
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(),
+                Expires = DateTime.UtcNow.AddMinutes(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = "me-core",
+                Audience = "me-core"
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+            #endregion
+
             var query = request.Adapt<GetProductsQuery>();
             var result = await sender.Send(query);
             var response = result.Adapt<GetProductsResponse>();
