@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 using BuildingBlocks.Messaging.MassTransit;
 using Carter;
 using FluentValidation;
@@ -11,6 +12,7 @@ using Test.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddSingleton<TokenService>();
 
@@ -59,6 +61,8 @@ app.MapGet("/", () => "Hello World!")
 // Configure the HTTP request pipeline.
 
 app.MapCarter();
+
+app.UseExceptionHandler(options => { });
 
 // Enable authentication middleware
 app.UseAuthentication();
