@@ -16,12 +16,13 @@ using Test.API.Models;
 namespace Test.API.Products.GetProducts;
 public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
 public record GetProductsResponse(IEnumerable<Product> Products);
-public class GetProductsEndpoint : ICarterModule
+public class GetProductsEndpoint(ILogger<GetProductsEndpoint> logger) : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/products", async ([AsParameters] GetProductsRequest request, ISender sender) =>
         {
+            logger.LogInformation("Received GetProductsRequest: {@Request}", request);
             #region TestAuth
             //List<Claim> claims = new List<Claim>();
             //claims.Add(new Claim(ClaimTypes.Name, "TestUser"));

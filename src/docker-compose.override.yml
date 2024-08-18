@@ -9,3 +9,27 @@ services:
     restart: always
     ports:
       - "1433:1433"
+  elasticsearch:
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.monitoring.collection.enabled=true
+    ports:
+      - "9200:9200"   # For HTTP REST API
+      - "9300:9300"   # For internal cluster communication
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    restart: always
+  kibana:
+    container_name: kibana
+    ports:
+      - "5601:5601"   # Kibana web interface
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    restart: always
+
+volumes:
+  es_data:

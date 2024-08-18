@@ -5,11 +5,27 @@ using Carter;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog.Sinks.Elasticsearch;
+using Serilog;
 using System.Text;
 using Test.API;
 using Test.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()  // Write logs to the console
+    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+    {
+        AutoRegisterTemplate = true,
+        IndexFormat = "aspnetcore-logs-{0:yyyy.MM.dd}"
+    })
+    .CreateLogger();
+
+// Set Serilog as the logging provider
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
