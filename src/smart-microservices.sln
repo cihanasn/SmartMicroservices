@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C72EEB5D-0763-4F53-9BF8-B68E894F52DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{F77CC69F-E2B1-4D4C-AC9B-BC64B77985B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpApiGateway", "ApiGateways\YarpApiGateway\YarpApiGateway.csproj", "{079412B4-82C4-438E-9F77-5ACBE0777C41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{C72EEB5D-0763-4F53-9BF8-B68E894F52DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72EEB5D-0763-4F53-9BF8-B68E894F52DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72EEB5D-0763-4F53-9BF8-B68E894F52DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079412B4-82C4-438E-9F77-5ACBE0777C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079412B4-82C4-438E-9F77-5ACBE0777C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079412B4-82C4-438E-9F77-5ACBE0777C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079412B4-82C4-438E-9F77-5ACBE0777C41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +87,7 @@ Global
 		{5EFA9119-B54C-40EE-8492-C5301D376AB3} = {47FD5FEC-E9E8-48FE-A8DA-5357A34DCB6B}
 		{9CCAFBD1-BE6B-4309-99DA-D8C8BC642A58} = {47FD5FEC-E9E8-48FE-A8DA-5357A34DCB6B}
 		{77A41195-6D54-4B26-AB69-8706B720BB9F} = {47FD5FEC-E9E8-48FE-A8DA-5357A34DCB6B}
+		{079412B4-82C4-438E-9F77-5ACBE0777C41} = {F77CC69F-E2B1-4D4C-AC9B-BC64B77985B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1E0BBB3-0AA4-4CD9-8608-0158A66A315D}
